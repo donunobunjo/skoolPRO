@@ -39,8 +39,8 @@ class SubjectController extends Controller
     public function store(SubjectValidation $req)
     {
         $subject=new Subject;
-        $subject->Subject=$req->subject;
-        $subject->Category=$req->category;
+        $subject->Subject=strtoupper($req->subject);
+        $subject->Category=strtoupper($req->category);
         $subject->save();
         return response()->json($subject);
     }
@@ -78,8 +78,8 @@ class SubjectController extends Controller
     public function update(SubjectValidation $req, $subjectid)
     {
         $subject= Subject::find($subjectid);
-        $subject->Subject = $req->subject;
-        $subject->Category = $req->category;
+        $subject->Subject = strtoupper($req->subject);
+        $subject->Category = strtoupper($req->category);
         $subject->save();
         return response()->json($subject);
     }

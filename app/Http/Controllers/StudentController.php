@@ -47,14 +47,14 @@ class StudentController extends Controller
     public function store(StudentValidation $req)
     {
         $student=new Student;
-        $student->RollNumber=$req->RollNumber;
-        $student->Gender=$req->Gender;
-        $student->FullName=$req->FullName;
-        $student->Class=$req->Class;
-        $student->State=$req->State;
-        $student->Lg=$req->Lg;
-        $student->Address=$req->Address;
-        $student->Phone=$req->Phone;
+        $student->RollNumber=strtoupper($req->RollNumber);
+        $student->Gender=strtoupper($req->Gender);
+        $student->FullName=strtoupper($req->FullName);
+        $student->Class=strtoupper($req->Class);
+        $student->State=strtoupper($req->State);
+        $student->Lg=strtoupper($req->Lg);
+        $student->Address=strtoupper($req->Address);
+        $student->Phone=strtoupper($req->Phone);
         $student->save();
         return response()->json($student);
     }
@@ -91,15 +91,15 @@ class StudentController extends Controller
     public function update(StudentUpdateValidation $req, $studentid)
     {
         $student= Student::find($studentid);
-        $student->RollNumber = $req->RollNumber;
-        $student->Gender = $req->Gender;
-        $student->FullName = $req->FullName;
-        $student->Gender = $req->Gender;
-        $student->Class = $req->Class;
-        $student->State = $req->State;
-        $student->Lg = $req->Lg;
-        $student->Phone = $req->Phone;
-        $student->Address = $req->Address;
+        $student->RollNumber = strtoupper($req->RollNumber);
+        $student->Gender = strtoupper($req->Gender);
+        $student->FullName = strtoupper($req->FullName);
+        $student->Gender = strtoupper($req->Gender);
+        $student->Class = strtoupper($req->Class);
+        $student->State = strtoupper($req->State);
+        $student->Lg = strtoupper($req->Lg);
+        $student->Phone = strtoupper($req->Phone);
+        $student->Address = strtoupper($req->Address);
         $student->save();
         return response()->json($student);
     }

@@ -17,7 +17,7 @@ class SessionController extends Controller
     public function addSession(SessionValidation $req){
       
         $sess=new Session;
-        $sess->Session=$req->session;
+        $sess->Session=strtoupper($req->session);
         $sess->save();
         return response()->json($sess);
     }
@@ -30,7 +30,7 @@ class SessionController extends Controller
     public function updateSession(SessionValidation $req, $sessionid){
         //$ses=new Session;
         $ses = Session::find($sessionid);
-        $ses->Session = $req->session;
+        $ses->Session = strtoupper($req->session);
         $ses->save();
         return response()->json($ses);
     }

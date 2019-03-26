@@ -39,8 +39,8 @@ class ClasssController extends Controller
     //public function store(Request $req)
     {
         $clas=new Classs;
-        $clas->Classs=$req->classs;
-        $clas->Section=$req->section;
+        $clas->Classs=strtoupper($req->classs);
+        $clas->Section=strtoupper($req->section);
         $clas->save();
         return response()->json($clas);
     }
@@ -78,8 +78,8 @@ class ClasssController extends Controller
    // public function update(Request $req, $classid)
     {
         $clas= Classs::find($classid);
-        $clas->Classs = $req->classs;
-        $clas->Section = $req->section;
+        $clas->Classs = strtoupper($req->classs);
+        $clas->Section = strtoupper($req->section);
         $clas->save();
         return response()->json($clas);
     }
