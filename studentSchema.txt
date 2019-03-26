@@ -1,0 +1,11 @@
+RollNumber----------<Subject
+FullNames----names
+Gender--------------<Category
+Class--------classs
+			     student-------->subject
+State--------state
+LG-----------lg
+Address------address
+Phone-------phone
+
+

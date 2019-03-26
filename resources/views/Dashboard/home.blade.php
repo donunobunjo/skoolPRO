@@ -1,0 +1,1 @@
+@extends('Dashboard.layouts.app')
