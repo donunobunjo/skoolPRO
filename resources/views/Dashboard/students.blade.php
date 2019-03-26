@@ -224,7 +224,7 @@
 
                             <div class="form-group row add">
                                 <label for="lg" class="control-label col-sm-3">Lg :
-                                    <span class="red" id="req">*</span>
+                                    <span class="red" id="req">* <i id="spinForLg"class="fa fa-spinner fa-spin" style="font-size:24px;color:black;visibility:hidden;" ></i> </span>
                                 </label>
                                 <div class="col-sm-9">
                                     <select id = "lg" class="form-control">
@@ -760,16 +760,17 @@
         //Sending the state and getting the lgs to load the lg select
         $("#state").change(function(){
             var State = $(this).val();
-            alert(State);
+            //alert(State);
             if(State != ''){
-                $('#myPleaseWait').modal('show');
+                //$('#myPleaseWait').modal('show');
+                $('#spinForLg').css('visibility','visible');
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                
-                alert(State);
+                //alert(State);
                 $.ajax({
                     type: "post",
                     url: 'student/fetch',
@@ -777,11 +778,11 @@
                          State: State                     
                     },
                     success: function (data) {
-                        $('#myPleaseWait').modal('hide');
-
+                       // $('#myPleaseWait').modal('hide');
+                       $('#spinForLg').css('visibility','hidden')
                         if(data){
                           var mylgs = data;
-                          console.log(mylgs);
+                          //console.log(mylgs);
                           $('#lg').empty();
                           $('#lg').append('<option value = "">----Select Local Govt.----</option>');
                           $.each(mylgs,function(key,value){
@@ -795,11 +796,11 @@
                         }
 
 
-                        alert('success');
-                        alert(JSON.stringify(data));
+                        //alert('success');
+                        //alert(JSON.stringify(data));
                     },
                     error: function (data) {
-                        alert('failure');
+                        //alert('failure');
                        
                     }
                 });
