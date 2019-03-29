@@ -1,1 +1,2 @@
-1. Updating subject is not possible is category changes
+1. Updating subject is not possible if category changes and subject does not changes
+2. If updating a student, the local govt. select doesn't get populated with the student local govt before the update

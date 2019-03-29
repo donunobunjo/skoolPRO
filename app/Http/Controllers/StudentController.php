@@ -123,4 +123,14 @@ class StudentController extends Controller
         $lg_list = State::where('State',$state)->select('Lg')->orderBy('Lg')->get();
         return response()->json($lg_list);
     }
+
+    public function changeClassIndex()
+    {
+        $student=Student::all();
+        $class_list=Classs::all();
+        $state_list =State::distinct()->select('State')->orderBy('State')->get();
+        // return view('dashboard.session',compact('sess'));
+         return view('Dashboard.changeClass')->with('student',$student)
+                                          ->with('class_list',$class_list);
+    }
 }

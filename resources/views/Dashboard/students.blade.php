@@ -540,7 +540,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-
     $(document).ready(function () {
        
        //Display the create student modal form
@@ -558,7 +557,6 @@
             $('#updateMessage').html("");
             $('#modalCreate').modal({ backdrop: 'static', keyboard: false });
         });
-
           //Save the student
         $('#saveStudent').click(function (e) {
             $('.RollNumber-error').html("");
@@ -586,9 +584,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             e.preventDefault();
-
             $.ajax({
                 type: 'post',
                 url: '/student',
@@ -618,8 +614,6 @@
                 }
             });
         });
-
-
         //Deleting a student
         $('body').on('click', '.delete-student', function () {
             $('.rollNumber-error').html("");
@@ -650,7 +644,6 @@
                 return false;
             }
         });
-
          // Display the View student modal form
          $('body').on('click', '.show-student', function () {
             $('#modalView').modal({ backdrop: 'static', keyboard: false });
@@ -667,13 +660,10 @@
             $('#savedMessage').html("");
             $('#updateMessage').html("");
         });
-
         // Edit/Update Student
         $('body').on('click', '.edit-student', function () {
-
             alert($(this).attr("data-state"));
             alert($(this).attr("data-lg"));
-
             $('#modalUpdate').modal({ backdrop: 'static', keyboard: false });
             $('#updaterollNumberText').val($(this).attr("data-rollNumber"));
             $('#studentID').val($(this).attr("data-id"));
@@ -694,7 +684,6 @@
             $('.Address-error').html("");
             $('.Phone-error').html("");
         });
-
         //Saving the update to student
         $('#updateStudent').click(function (e) {
             $('.Gender-error').html("");
@@ -733,17 +722,12 @@
                     student += '<td><a href="#" class="show-student btn btn-info btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-gender="' + data.Gender + '"><i class="fa fa-eye"></i>View</a> ';
                     student += '<a href="#" class="edit-student btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-gender="' + data.Gender + '"><i class="fa fa-edit"></i>Edit</a> ';
                     student += '<a href="#" class="delete-student btn btn-danger btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '"data-gender="' + data.Gender + '"><i class="glyphicon glyphicon-trash"></i>Delete </a></td></tr>';*/
-
-
                     var student = '<tr id="student' + data.id + '"><td class="text-center">' + data.RollNumber + '</td>';
                     student +='<td class="text-center">'+data.FullName+'</td>'
                     student +='<td class="text-center">'+ data.Gender +'</td>';
                     student += '<td><a href="#" class="show-student btn btn-info btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-gender="'+data.Gender+'" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-state="'+data.State+'" data-lg="'+data.Lg+'" data-address="'+data.Address+'" data-phone="'+data.Phone+'"><i class="fa fa-eye"></i>View</a> ';
                     student += '<a href="#" class="edit-student btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-gender="'+data.Gender+'" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-state="'+data.State+'" data-lg="'+data.Lg+'" data-address="'+data.Address+'" data-phone="'+data.Phone+'"><i class="fa fa-edit"></i>Edit</a> ';
                     student += '<a href="#" class="delete-student btn btn-danger btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-gender="'+data.Gender+'" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-state="'+data.State+'" data-lg="'+data.Lg+'" data-address="'+data.Address+'" data-phone="'+data.Phone+'"><i class="glyphicon glyphicon-trash"></i>Delete </a></td></tr>';
-
-
-
                     $("#student" + studentid).replaceWith(student);
                     $('#updateMessage').html("Student update successfully");
                     $("#modalUpdate").modal("hide");
@@ -761,8 +745,6 @@
             });
             
         });
-
-
         //Sending the state and getting the lgs to load the lg select for create
         $("#state").change(function(){
             var State = $(this).val();
@@ -798,10 +780,7 @@
                           }
                          //$('#myPleaseWait').modal('hide');
                           );
-
                         }
-
-
                         //alert('success');
                         //alert(JSON.stringify(data));
                     },
@@ -811,11 +790,7 @@
                     }
                 });
             }
-
         });
-
-
-
         //Sending the state and getting the lgs to load the lg select for update
         $("#stateupdate").change(function(){
             var State = $(this).val();
@@ -851,10 +826,7 @@
                           }
                          //$('#myPleaseWait').modal('hide');
                           );
-
                         }
-
-
                         //alert('success');
                         //alert(JSON.stringify(data));
                     },
@@ -864,7 +836,6 @@
                     }
                 });
             }
-
         });
     });
 </script> 

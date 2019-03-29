@@ -43,7 +43,7 @@
             <a href="/subject"><i class="fa-files-o"></i> Subjects</a></li>
         </ul>
       </li>
-      <li><a href="#"><i class="fa fa-group"></i> Change Student Class</a></li>
+      <li><a href="/student/changeClass"><i class="fa fa-group"></i> Change Student Class</a></li>
     </ul>
   </li>
     <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>

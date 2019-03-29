@@ -37,6 +37,8 @@ Route::post('/student','StudentController@store');
 Route::delete('/student/{studentid?}','StudentController@destroy');
 Route::put('/student/{studentid?}','StudentController@update');
 Route::post('/student/fetch','StudentController@fetch');
+Route::get('/student/changeClass','StudentController@changeClassIndex');
+Route::put('/student/changeclass/{studentid?}','StudentController@changeClass');
 
 
 Auth::routes();
