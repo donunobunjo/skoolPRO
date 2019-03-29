@@ -451,8 +451,9 @@
                                 <div class="col-sm-9">
                                     <select id = "classupdate" class="form-control">
                                         <option value="">--Edit Class--</option>
-                                        <option value="FEMALE">FEMALE</option>
-                                        <option value="MALE">MALE</option>
+                                        @foreach($class_list as $class)
+                                                <option value="{{ $class->Classs}}">{{ $class->Classs }}</option>
+                                         @endforeach
                                     </select> 
                                     <span class="help-block Class-error red"></span>
                                 </div>
@@ -465,8 +466,9 @@
                                 <div class="col-sm-9">
                                     <select id = "stateupdate" class="form-control">
                                         <option value="">--Edit State--</option>
-                                        <option value="FEMALE">FEMALE</option>
-                                        <option value="MALE">MALE</option>
+                                        @foreach($state_list as $state)
+                                        <option value="{{ $state->State}}">{{ $state->State }}</option>
+                                         @endforeach
                                     </select> 
                                     <span class="help-block State-error red"></span>
                                 </div>
@@ -474,13 +476,12 @@
 
                             <div class="form-group row add">
                                 <label for="lgupdate" class="control-label col-sm-3">Local Govt. :
-                                    <span class="red" id="req">*</span>
+                                    <span class="red" id="req">*<i id="spinForLgUpdate"class="fa fa-spinner fa-spin" style="font-size:24px;color:black;visibility:hidden;" ></i></span>
                                 </label>
                                 <div class="col-sm-9">
                                     <select id = "lgupdate" class="form-control">
                                         <option value="">--Edit Local Govt.--</option>
-                                        <option value="FEMALE">FEMALE</option>
-                                        <option value="MALE">MALE</option>
+                                       
                                     </select> 
                                     <span class="help-block Lg-error red"></span>
                                 </div>
@@ -669,6 +670,10 @@
 
         // Edit/Update Student
         $('body').on('click', '.edit-student', function () {
+
+            alert($(this).attr("data-state"));
+            alert($(this).attr("data-lg"));
+
             $('#modalUpdate').modal({ backdrop: 'static', keyboard: false });
             $('#updaterollNumberText').val($(this).attr("data-rollNumber"));
             $('#studentID').val($(this).attr("data-id"));
@@ -676,6 +681,7 @@
             $('#nameupdate').val($(this).attr("data-fullname"));
             $('#classupdate').val($(this).attr("data-class"));
             $('#stateupdate').val($(this).attr("data-state"));
+            alert($('#stateupdate').val());
             $('#lgupdate').val($(this).attr("data-lg"));
             $('#phoneupdate').val($(this).attr("data-phone"));
             $('#addressupdate').val($(this).attr("data-address"));
@@ -757,7 +763,7 @@
         });
 
 
-        //Sending the state and getting the lgs to load the lg select
+        //Sending the state and getting the lgs to load the lg select for create
         $("#state").change(function(){
             var State = $(this).val();
             //alert(State);
@@ -787,6 +793,59 @@
                           $('#lg').append('<option value = "">----Select Local Govt.----</option>');
                           $.each(mylgs,function(key,value){
                                 $('#lg').append('<option value="'+value.Lg+'">'+value.Lg+'</option>');
+                               
+                                
+                          }
+                         //$('#myPleaseWait').modal('hide');
+                          );
+
+                        }
+
+
+                        //alert('success');
+                        //alert(JSON.stringify(data));
+                    },
+                    error: function (data) {
+                        //alert('failure');
+                       
+                    }
+                });
+            }
+
+        });
+
+
+
+        //Sending the state and getting the lgs to load the lg select for update
+        $("#stateupdate").change(function(){
+            var State = $(this).val();
+            //alert(State);
+            if(State != ''){
+                //$('#myPleaseWait').modal('show');
+                $('#spinForLgUpdate').css('visibility','visible');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+               
+                //alert(State);
+                $.ajax({
+                    type: "post",
+                    url: 'student/fetch',
+                    data: {
+                         State: State                     
+                    },
+                    success: function (data) {
+                       // $('#myPleaseWait').modal('hide');
+                       $('#spinForLgUpdate').css('visibility','hidden')
+                        if(data){
+                          var mylgs = data;
+                          //console.log(mylgs);
+                          $('#lgupdate').empty();
+                          $('#lgupdate').append('<option value = "">----Select Local Govt.----</option>');
+                          $.each(mylgs,function(key,value){
+                                $('#lgupdate').append('<option value="'+value.Lg+'">'+value.Lg+'</option>');
                                
                                 
                           }

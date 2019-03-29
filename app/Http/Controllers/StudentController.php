@@ -51,8 +51,8 @@ class StudentController extends Controller
         $student->Gender=strtoupper($req->Gender);
         $student->FullName=strtoupper($req->FullName);
         $student->Class=strtoupper($req->Class);
-        $student->State=strtoupper($req->State);
-        $student->Lg=strtoupper($req->Lg);
+        $student->State=$req->State;
+        $student->Lg=$req->Lg;
         $student->Address=strtoupper($req->Address);
         $student->Phone=strtoupper($req->Phone);
         $student->save();
@@ -96,8 +96,8 @@ class StudentController extends Controller
         $student->FullName = strtoupper($req->FullName);
         $student->Gender = strtoupper($req->Gender);
         $student->Class = strtoupper($req->Class);
-        $student->State = strtoupper($req->State);
-        $student->Lg = strtoupper($req->Lg);
+        $student->State = $req->State;
+        $student->Lg = $req->Lg;
         $student->Phone = strtoupper($req->Phone);
         $student->Address = strtoupper($req->Address);
         $student->save();
