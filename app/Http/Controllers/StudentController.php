@@ -127,10 +127,10 @@ class StudentController extends Controller
     public function changeClassIndex()
     {
         $student=Student::all();
-        $class_list=Classs::all();
+        $class_list=Classs::orderBy('Classs')->get();
         $state_list =State::distinct()->select('State')->orderBy('State')->get();
         // return view('dashboard.session',compact('sess'));
          return view('Dashboard.changeClass')->with('student',$student)
-                                          ->with('class_list',$class_list);
+                                             ->with('class_list',$class_list);
     }
 }

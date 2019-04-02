@@ -662,8 +662,8 @@
         });
         // Edit/Update Student
         $('body').on('click', '.edit-student', function () {
-            alert($(this).attr("data-state"));
-            alert($(this).attr("data-lg"));
+           // alert($(this).attr("data-state"));
+           // alert($(this).attr("data-lg"));
             $('#modalUpdate').modal({ backdrop: 'static', keyboard: false });
             $('#updaterollNumberText').val($(this).attr("data-rollNumber"));
             $('#studentID').val($(this).attr("data-id"));
@@ -671,7 +671,7 @@
             $('#nameupdate').val($(this).attr("data-fullname"));
             $('#classupdate').val($(this).attr("data-class"));
             $('#stateupdate').val($(this).attr("data-state"));
-            alert($('#stateupdate').val());
+           // alert($('#stateupdate').val());
             $('#lgupdate').val($(this).attr("data-lg"));
             $('#phoneupdate').val($(this).attr("data-phone"));
             $('#addressupdate').val($(this).attr("data-address"));
@@ -837,6 +837,17 @@
                 });
             }
         });
+
+        $("#modalUpdate").on('show.bs.modal', function(){
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            alert('The modal is about to be shown.');
+            alert($('#stateupdate').val());
+        });
+
     });
 </script> 
 @endsection

@@ -49,7 +49,15 @@
                                 <h1>Change Student's Class</h1>
                                 <h3 id="updateMessage" style="color:green;text-align:center;"></h3>
                             </div>
-
+                            <div style="text-align:center;">
+                                    <label>Class</label>
+                                    <select class="select2" style="width: 30%;margin-top:20px" id=classList>
+                                        <option value="">--Select Current Class--</option>
+                                        @foreach($class_list as $class)
+                                                <option value="{{ $class->Classs}}">{{ $class->Classs }}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
                             <div class="panel-body">
 
                                 <div class="table table-responsive">
@@ -182,11 +190,6 @@
 
         <!-- Change student class Modal End -->
 
-
-
-
-
-        
 @endsection 
 @section('scripts')
 <script type="text/javascript">
@@ -200,6 +203,33 @@
            $('#class').val($(this).attr("data-class"));
            $('#modalChangeClass').modal({ backdrop: 'static', keyboard: false });
         });
+
+
+        // the select element that displays the students in a class for change
+        $("#classList").change(function(){
+            var value = $(this).find('option:selected').val();
+            if (value==""){
+                alert('You need to select a class');
+                return false;
+            }
+            $('#student-list').empty();
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            alert(value);
+            $.ajax({
+
+            });
+            alert('after ajax');
+           
+
+
+        });
+
+       
+        
     });
 </script> 
 @endsection
