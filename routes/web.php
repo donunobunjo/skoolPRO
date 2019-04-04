@@ -39,6 +39,7 @@ Route::put('/student/{studentid?}','StudentController@update');
 Route::post('/student/fetch','StudentController@fetch');
 Route::get('/student/changeClass','StudentController@changeClassIndex');
 Route::put('/student/changeclass/{studentid?}','StudentController@changeClass');
+Route::get('/student/class','StudentController@studentsInClass');
 
 
 Auth::routes();

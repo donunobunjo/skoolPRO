@@ -195,20 +195,19 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-       //alert("helloooooooooo");
+        //Display the change modal to allow for change in the class
         $('body').on('click', '.show-class', function () {
-           //alert($(this).attr("data-rollNumber"));
            $('#rollNumber').val($(this).attr("data-rollNumber"));
            $('#names').val($(this).attr("data-fullName"));
            $('#class').val($(this).attr("data-class"));
+           $('#classs').val("");
            $('#modalChangeClass').modal({ backdrop: 'static', keyboard: false });
         });
 
-
-        // the select element that displays the students in a class for change
+        //Empties the table body and loads the students in the class selected
         $("#classList").change(function(){
-            var value = $(this).find('option:selected').val();
-            if (value==""){
+            var Classs = $(this).find('option:selected').val();
+            if (Classs==""){
                 alert('You need to select a class');
                 return false;
             }
@@ -218,18 +217,36 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
             });
-            alert(value);
             $.ajax({
-
+                type: "get",
+                url: '/student/class',
+                data: {
+                     Classs: Classs                     
+                },
+                success: function (data) {
+                    $.each(data, function(k) {
+                        var id = data[k].id;
+                        var RollNumber = data[k].RollNumber;
+                        var FullName = data[k].FullName;
+                        var Class = data[k].Class;
+                        var student = '<tr id="student' + id + '"><td class="text-center">' + RollNumber + '</td>';
+                        student +='<td class="text-center">'+FullName+'</td>';
+                        student +='<td class="text-center">'+Class+'</td>';
+                        student += '<td><a href="#" class="show-class btn btn-info btn-sm" data-id="' + id + '" data-rollNumber="' + RollNumber +'" data-fullname="'+FullName+'"data-class="'+Class+'"><i class="fa fa-eye"></i>Change Class</a></tr> ';
+                        $('#student-list').append(student);
+                    });
+                },
+                error: function (data) {
+                      
+                },
             });
-            alert('after ajax');
-           
-
-
         });
 
-       
-        
+        //Updates the new class selected
+        $("#changeclass").click(function (e) {
+            alert("heyyyyyyyy");
+        });
+
     });
 </script> 
 @endsection
