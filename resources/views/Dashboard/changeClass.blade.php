@@ -3,7 +3,7 @@
 
 <section class="content-header">
     <h1>
-        DASHBOARD
+       <!-- DASHBOARD-->
         <small>
             <!--View Students and add new Student-->
         </small>
@@ -38,10 +38,7 @@
             </div>
         </div>
         <div class="box-body">
-            <!--Start creating your amazing application!-->
-
-
-            <div class="container">
+           <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="panel panel-default">
@@ -68,37 +65,12 @@
                                                 <th class="text-center" width="150px">Name</th>
                                                 <th class="text-center" width="70px">Class</th>
                                                 <th class="text-center" width="150px">
-                                                    
                                                 </th>
 
                                             </tr>
                                         </thead>
                                         <tbody id="student-list" name="student-list">
-                                            {{csrf_field()}}
-                                            <?php
-                                $no=1;
-                            ?>
-                                                @foreach($student as $key=>$value)
-                                                <!---<tr class="class{{$value->id}}">-->
-                                                <tr id="student{{$value->id}}">
-                                                    <!-- <td>{{$no++}}</td>-->
-                                                    <!--<td>{{$value->id}}</td>-->
-                                                    <td class="text-center">{{$value->RollNumber}}</td>
-                                                    <td class="text-center">{{$value->FullName}}</td>
-                                                    <td class="text-center">{{$value->Class}}</td>
-                                                    <td>
-                                                        <a href="#" class="show-class btn btn-info btn-sm" data-id="{{$value->id}}" data-rollNumber="{{$value->RollNumber}}" data-gender="{{$value->Gender}}"
-                                                            data-fullname="{{$value->FullName}}" data-class="{{$value->Class}}"
-                                                            data-state="{{$value->State}}" data-lg="{{$value->Lg}}" data-address="{{$value->Address}}"
-                                                            data-phone="{{$value->Phone}}" value="{{$value->id}}">
-                                                            <i class="fa fa-eye"></i>
-                                                            Change
-                                                        </a>
-
-                                                    </td>
-
-                                                </tr>
-                                                @endforeach
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -174,12 +146,12 @@
                                     <span class="help-block Class-error red"></span>
                                 </div>
                             </div>
-
+                            <input type="hidden" id="studid">
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="changeclass">Change Class</button>
+                        <button type="button" class="btn btn-primary" id="changeclass" disabled >Change Class</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -200,6 +172,7 @@
            $('#rollNumber').val($(this).attr("data-rollNumber"));
            $('#names').val($(this).attr("data-fullName"));
            $('#class').val($(this).attr("data-class"));
+           $('#studid').val($(this).attr("data-id"));
            $('#classs').val("");
            $('#modalChangeClass').modal({ backdrop: 'static', keyboard: false });
         });
@@ -244,7 +217,48 @@
 
         //Updates the new class selected
         $("#changeclass").click(function (e) {
-            alert("heyyyyyyyy");
+            var newclass=$("#classs").val();
+            var oldclass = $('#class').val();
+            var studentid = $('#studid').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "PUT",
+                url: '/student/changeclass/' + studentid,
+                data: { newclass: newclass},
+                dataType: 'json',
+                success: function (data) {
+                    var student = '<tr id="student' + data.id + '"><td class="text-center">' + data.RollNumber + '</td>';
+                        student +='<td class="text-center">'+data.FullName+'</td>';
+                        student +='<td class="text-center">'+data.Class+'</td>';
+                        student += '<td><a href="#" class="show-class btn btn-info btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber +'" data-fullname="'+data.FullName+'"data-class="'+data.Class+'"><i class="fa fa-eye"></i>Change Class</a></tr> ';
+                    $("#student" + studentid).replaceWith(student);
+                    $("#modalChangeClass").modal("hide");
+                },
+                error: function (data) {
+                  alert("Ooops something went wrong. Please try agan")
+                }
+            });
+        });
+
+        //Handles the neww class select
+        $("#classs").change(function (e) {
+          var newclass=$("#classs").val();
+          var oldclass = $('#class').val();
+          if (newclass==oldclass){
+            $("#changeclass").attr("disabled", true);
+              alert("new class can't be the same as old class");
+              return false;
+          }
+          if (newclass==""){
+             $("#changeclass").attr("disabled", true);
+              alert("You will need to select a new class");
+              return false;
+          }
+          $("#changeclass").attr("disabled", false);
         });
 
     });

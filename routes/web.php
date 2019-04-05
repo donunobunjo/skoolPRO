@@ -42,6 +42,7 @@ Route::put('/student/changeclass/{studentid?}','StudentController@changeClass');
 Route::get('/student/class','StudentController@studentsInClass');
 
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

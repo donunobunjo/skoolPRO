@@ -126,23 +126,25 @@ class StudentController extends Controller
 
     public function changeClassIndex()
     {
-        $student=Student::all();
+        //$student=Student::all();
         $class_list=Classs::orderBy('Classs')->get();
         $state_list =State::distinct()->select('State')->orderBy('State')->get();
-        // return view('dashboard.session',compact('sess'));
-         return view('Dashboard.changeClass')->with('student',$student)
-                                             ->with('class_list',$class_list);
+        return view('Dashboard.changeClass')->with('class_list',$class_list);
     }
 
     public function studentsInClass(Request $req)
     {
-       // return response()->json(['name'=>'Don','age'=>'12']);
         $Classs =$req->Classs;
-        /*$lg_list = State::where('State',$state)->select('Lg')->orderBy('Lg')->get();
-        return response()->json($lg_list);
-        $lists = Todolist::where('complete', '=', 1)->get();
-        */
         $studentsInClass=Student::where('Class',$Classs)->orderBy('RollNumber')->get();
         return response()->json($studentsInClass);
+    }
+
+    public function changeClass(Request $req, $studentid)
+    {
+        $student= Student::find($studentid);
+        $student->Class = $req->newclass;
+        $student->save();
+        return response()->json($student);
+       
     }
 }
