@@ -41,6 +41,8 @@ Route::get('/student/changeClass','StudentController@changeClassIndex');
 Route::put('/student/changeclass/{studentid?}','StudentController@changeClass');
 Route::get('/student/class','StudentController@studentsInClass');
 
+Route::get('/score','ScoreController@index');
+
 
 
 Auth::routes();

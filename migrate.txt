@@ -3,7 +3,6 @@ FullName
 Session
 Term
 Class
-Category
 Subject
 FirstCA
 SecondCA
