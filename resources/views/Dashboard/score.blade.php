@@ -81,7 +81,7 @@
                                                 <option value="2nd">Second</option>
                                                 <option value="3rd">Third</option>
                                             </select> 
-                                           <!-- <button type="button" class="btn btn-primary" id="btnparameters">Ok</button>-->
+                                           <button type="button" class="btn btn-primary" id="btnparameters" style="	visibility: hidden;">Reset</button>
                                     </fieldset>
                                     </form> 
                                     <form class="form-inline">
@@ -140,21 +140,38 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-      // alert("yipeeeeeeeee");
-
-
-      $("#subject").change(function(){
-           /* var Classs = $(this).find('option:selected').val();
-            if (Classs==""){
-                alert('You need to select a class');
-                return false;
-            }*/
-            var subject = $(this).find('option:selected').val();
-            var session= $('#session').val();
-            //var class= $('#class').val();            
-           // var term= $('#term').val();
-           alert(session);
+       $("#subject").change(function(){
+            //var subject = $(this).find('option:selected').val();
+            //var session = $('#session option:selected').val();
+            //var term = $('#term option:selected').val();
+            //var clas = $('#class option:selected').val();
+           if ($(this).find('option:selected').val()==""||$('#session option:selected').val()==""||$('#term option:selected').val()==""||$('#class option:selected').val()==""){
+                 alert("yepa");
+            }
+            else{
+                $("#session").attr("disabled", true);
+                $("#subject").attr("disabled", true);
+                $("#term").attr("disabled", true);
+                $("#class").attr("disabled", true);
+               // $("#btnparameters").attr("visibility", visible);
+               $("#btnparameters").css("visibility","visible");
+            }
            
+        });
+
+        $('#btnsubmit').click(function(){
+           // alert("yipeeee");
+            
+        });
+
+        $('#btnparameters').click(function(){
+           //alert("yipeeee");
+                $("#session").attr("disabled", false);
+                $("#subject").attr("disabled", false);
+                $("#term").attr("disabled", false);
+                $("#class").attr("disabled", false);
+                $("#session option:selected").val()="";
+            
         });
     });
 </script> 
