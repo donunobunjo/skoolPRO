@@ -1,0 +1,13 @@
+RollNumber
+FullName
+Session
+Term
+Class
+Subject
+FirstCA
+SecondCA
+Exam
+Total
+GrandTotal
+Average
+GrandAverage
