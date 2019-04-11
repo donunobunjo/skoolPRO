@@ -135,7 +135,7 @@ class StudentController extends Controller
     public function studentsInClass(Request $req)
     {
         $Classs =$req->Classs;
-        $studentsInClass=Student::where('Class',$Classs)->orderBy('RollNumber')->get();
+        $studentsInClass=Student::where('Class',$Classs)->orderBy('FullName')->get();
         return response()->json($studentsInClass);
     }
 

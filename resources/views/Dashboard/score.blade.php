@@ -88,6 +88,7 @@
                                     <form class="form-inline">
                                     <fieldset>
                                     <legend>Enter details</legend>
+                                            <i id="spinForStudentName"class="fa fa-spinner fa-spin" style="font-size:24px;color:black;visibility:hidden;" ></i>
                                             <label for="fullname">Name:</label>
                                             <select id = "fullname" class="form-control">
                                                 <option value="">--Select Student Name--</option>
@@ -168,6 +169,51 @@
                 $("#class").attr("disabled", false);
                 $("#parameterForm").trigger("reset");
                 $(this).css("visibility","hidden");
+        });
+
+        $('#class').change(function(){
+            var Classs = $(this).val();
+            if (Classs !=""){
+                $('#spinForStudentName').css('visibility','visible');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "get",
+                    url: '/student/class',
+                    data: {
+                         Classs: Classs                    
+                    },
+                    success: function (data) {
+                       // $('#myPleaseWait').modal('hide');
+                       $('#spinForStudentName').css('visibility','hidden')
+                        if(data){
+                          var students_list = data;
+                          //console.log(mylgs);
+                          $('#fullname').empty();
+                          $('#fullname').append('<option value = "">----Select Student----</option>');
+                          $.each(students_list,function(key,value){
+                                $('#fullname').append('<option value="'+value.RollNumber+'">'+value.FullName+'</option>');
+                               
+                                
+                          }
+                         //$('#myPleaseWait').modal('hide');
+                          );
+                        }
+                        //alert('success');
+                        alert(JSON.stringify(data));
+                    },
+                    error: function (data) {
+                        //alert('failure');
+                       
+                    }
+                });
+                alert("heloooooo")
+            }
+            
         });
     });
 </script> 
