@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Score;
+use App\Classs;
+use App\Session;
+use App\Subject;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
@@ -14,7 +17,12 @@ class ScoreController extends Controller
      */
     public function index()
     {
-        return view('Dashboard.score');
+        $class_list=Classs::orderBy('Classs')->get();
+        $session_list=Session::orderBy('Session')->get();
+        $subject_list=Subject::orderBy('Subject')->get();
+        return view('Dashboard.score')->with('class_list',$class_list)
+                                      ->with('session_list' ,$session_list)
+                                      ->with('subject_list' ,$subject_list);
     }
 
     /**

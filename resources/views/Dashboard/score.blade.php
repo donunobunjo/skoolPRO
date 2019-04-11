@@ -51,14 +51,15 @@
                                         <option value="">--Select Current Class--</option>
                                        
                                     </select>-->
-                                    <form class="form-inline">
+                                    <form class="form-inline" id="parameterForm">
                                     <fieldset>
                                     <legend>Choose parameters</legend>
                                             <label for="session">Session:</label>
                                             <select id = "session" class="form-control">
                                                 <option value="">--Select Session--</option>
-                                                <option value="FEMALE">FEMALE</option>
-                                                <option value="MALE">MALE</option>
+                                                @foreach($session_list as $session)
+                                                    <option value="{{ $session->Session}}">{{ $session->Session }}</option>
+                                                @endforeach
                                             </select> 
                                             <label for="term">Term:</label>
                                             <select id = "term" class="form-control">
@@ -70,16 +71,16 @@
                                             <label for="class">Class:</label>
                                             <select id = "class" class="form-control">
                                                 <option value="">--Select Class--</option>
-                                                <option value="1st">First</option>
-                                                <option value="2nd">Second</option>
-                                                <option value="3rd">Third</option>
+                                                    @foreach($class_list as $class)
+                                                        <option value="{{ $class->Classs}}">{{ $class->Classs }}</option>
+                                                     @endforeach
                                             </select> 
                                             <label for="subject">Subject:</label>
                                             <select id = "subject" class="form-control">
                                                 <option value="">--Select Subject--</option>
-                                                <option value="1st">First</option>
-                                                <option value="2nd">Second</option>
-                                                <option value="3rd">Third</option>
+                                                @foreach($subject_list as $subject)
+                                                        <option value="{{ $subject->Subject}}">{{ $subject->Subject }}</option>
+                                                @endforeach
                                             </select> 
                                            <button type="button" class="btn btn-primary" id="btnparameters" style="	visibility: hidden;">Reset</button>
                                     </fieldset>
@@ -141,20 +142,16 @@
 
     $(document).ready(function () {
        $("#subject").change(function(){
-            //var subject = $(this).find('option:selected').val();
-            //var session = $('#session option:selected').val();
-            //var term = $('#term option:selected').val();
-            //var clas = $('#class option:selected').val();
+           
            if ($(this).find('option:selected').val()==""||$('#session option:selected').val()==""||$('#term option:selected').val()==""||$('#class option:selected').val()==""){
-                 alert("yepa");
+                 alert("You need to select an option for all the parameters");
             }
             else{
                 $("#session").attr("disabled", true);
                 $("#subject").attr("disabled", true);
                 $("#term").attr("disabled", true);
                 $("#class").attr("disabled", true);
-               // $("#btnparameters").attr("visibility", visible);
-               $("#btnparameters").css("visibility","visible");
+                $("#btnparameters").css("visibility","visible");
             }
            
         });
@@ -165,13 +162,12 @@
         });
 
         $('#btnparameters').click(function(){
-           //alert("yipeeee");
                 $("#session").attr("disabled", false);
                 $("#subject").attr("disabled", false);
                 $("#term").attr("disabled", false);
                 $("#class").attr("disabled", false);
-                $("#session option:selected").val()="";
-            
+                $("#parameterForm").trigger("reset");
+                $(this).css("visibility","hidden");
         });
     });
 </script> 
