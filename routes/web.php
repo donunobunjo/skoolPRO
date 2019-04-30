@@ -42,7 +42,7 @@ Route::put('/student/changeclass/{studentid?}','StudentController@changeClass');
 Route::get('/student/class','StudentController@studentsInClass');
 
 Route::get('/score','ScoreController@index');
-
+Route::post('/score','ScoreController@store');
 
 
 Auth::routes();

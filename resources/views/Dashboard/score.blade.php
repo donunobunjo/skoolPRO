@@ -85,15 +85,14 @@
                                            <button type="button" class="btn btn-primary" id="btnparameters" style="	visibility: hidden;">Reset</button>
                                     </fieldset>
                                     </form> 
-                                    <form class="form-inline">
+                                    <form class="form-inline" id="submittedscore">
                                     <fieldset>
                                     <legend>Enter details</legend>
                                             <i id="spinForStudentName"class="fa fa-spinner fa-spin" style="font-size:24px;color:black;visibility:hidden;" ></i>
                                             <label for="fullname">Name:</label>
                                             <select id = "fullname" class="form-control">
                                                 <option value="">--Select Student Name--</option>
-                                                <option value="FEMALE">FEMALE</option>
-                                                <option value="MALE">MALE</option>
+                                                
                                             </select> 
                                             <label for="firstca">First CA:</label>
                                             <input type="number" id= "firstca">
@@ -158,8 +157,40 @@
         });
 
         $('#btnsubmit').click(function(){
-           // alert("yipeeee");
-            
+           alert("yipeeee");
+           var Session = $('#session').val();
+           var Term = $('#term').val();
+           var Class = $('#class').val();
+           var Subject = $('#subject').val();
+           var RollNumber =$('#fullname').val();
+           var FullName =$('#fullname').find('option:selected').text();
+           var FirstCA =$('#firstca').val();
+           var SecondCA =$('#secondca').val();
+           var Exam =$('#exam').val();
+           alert(Session+Term+Class+Subject+RollNumber+FullName+FirstCA+SecondCA+Exam);
+           $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            alert('hiiiiii');
+           e.preventDefault();
+           $.ajax({
+                type: 'post',
+                url: '/score',
+                data:{Session:Session,Term:Term,Class:Class,Subject:Subject,RollNumber:RollNumber,FullName:FullName,FirstCA:FirstCA,SecondCA:SecondCA,Exam:Exam},
+                dataType: 'json',
+                success:function(data){
+                    //alert(JSON.stringify(data));
+                    alert('success');
+                },
+                error:function(data){
+                    //alert(JSON.stringify(data));
+                    alert('error');
+                },
+
+           });
+           
         });
 
         $('#btnparameters').click(function(){
@@ -204,14 +235,14 @@
                           );
                         }
                         //alert('success');
-                        alert(JSON.stringify(data));
+                       // alert(JSON.stringify(data));
                     },
                     error: function (data) {
                         //alert('failure');
                        
                     }
                 });
-                alert("heloooooo")
+               // alert("heloooooo")
             }
             
         });

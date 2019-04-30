@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="{{asset('dashboard/bower_components/Ionicons/css/ionicons.min.css')}}">
  
   <link rel="stylesheet" href="{{asset('dashboard/dist/css/AdminLTE.min.css')}}">
+
+
+  <link rel="stylesheet" href="{{asset('dashboard/dist/css/datatables.min.css')}}">
   
  
   <link rel="stylesheet" href="{{asset('dashboard/dist/css/skins/_all-skins.min.css')}}">

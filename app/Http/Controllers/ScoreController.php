@@ -41,9 +41,21 @@ class ScoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        $score = new Score();
+        $score->Session=$req->Session;
+        $score->Term=$req->Term;
+        $score->Class=$req->Class;
+        $score->Subject=$req->Subject;
+        $score->RollNumber=$req->RollNumber;
+        $score->FullName=$req->FullName;
+        $score->FirstCA=$req->FirstCA;
+        $score->SecondCA=$req->SecondCA;
+        $score->Exam=$req->Exam;
+        $score->save();
+        return response()->json($score);
+
     }
 
     /**

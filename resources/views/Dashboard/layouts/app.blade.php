@@ -26,6 +26,8 @@
 
 <script src="{{asset('dashboard/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+<script src="{{asset('dashboard/dist/js/datatables.min.js')}}"></script>
+
 <script src="{{asset('dashboard/dist/js/adminlte.min.js')}}"></script>
     @yield('scripts')
 </body>
