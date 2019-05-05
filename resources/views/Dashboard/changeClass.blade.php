@@ -244,7 +244,7 @@
             });
         });
 
-        //Handles the neww class select
+        //Handles the new class select
         $("#classs").change(function (e) {
           var newclass=$("#classs").val();
           var oldclass = $('#class').val();

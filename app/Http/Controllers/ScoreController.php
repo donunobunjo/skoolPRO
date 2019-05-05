@@ -20,7 +20,7 @@ class ScoreController extends Controller
         $class_list=Classs::orderBy('Classs')->get();
         $session_list=Session::orderBy('Session')->get();
         $subject_list=Subject::orderBy('Subject')->get();
-        return view('Dashboard.score')->with('class_list',$class_list)
+        return view('Dashboard.sco')->with('class_list',$class_list)
                                       ->with('session_list' ,$session_list)
                                       ->with('subject_list' ,$subject_list);
     }
@@ -55,6 +55,9 @@ class ScoreController extends Controller
         $score->Exam=$req->Exam;
         $score->save();
         return response()->json($score);
+       
+        /*$test = array("yam","oraneg");
+        return response()->json($test);*/
 
     }
 
@@ -101,5 +104,17 @@ class ScoreController extends Controller
     public function destroy(Score $score)
     {
         //
+    }
+    public function populate(Request $req)
+    {
+        //$score =Score::all();
+       // $studentsInClass=Student::where('Class',$Classs)->orderBy('FullName')->get();
+       $score= Score::where('Session',$req->Session)
+                    ->where('Term',$req->Term)
+                    ->where('Class',$req->Classs)
+                    ->where('Subject',$req->Subject)
+                    ->get();
+        return response()->json($score);
+
     }
 }

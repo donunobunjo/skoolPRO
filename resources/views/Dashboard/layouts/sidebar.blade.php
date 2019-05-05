@@ -65,7 +65,7 @@
         </li>
     </ul>
 </li>
-    <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+    <li><a href="/search"><i class="fa fa-search"></i> <span>Search</span></a></li>
   </ul>
   <!-- /.sidebar-menu -->
 </section>

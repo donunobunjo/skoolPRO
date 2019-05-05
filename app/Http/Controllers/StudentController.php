@@ -147,4 +147,10 @@ class StudentController extends Controller
         return response()->json($student);
        
     }
+
+    public function search()
+    {
+        $students=Student::all();
+        return view('Dashboard.search')->with('students',$students);
+    }
 }

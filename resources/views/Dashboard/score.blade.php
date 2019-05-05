@@ -100,7 +100,7 @@
                                             <input type="number" id= "secondca">
                                             <label for="exam">Exam:</label>
                                             <input type="number" id = "exam">
-                                            <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                                            <button type="button" class="btn btn-primary" id="saveScore">Submit</button>
                                     </fieldset>
                                     </form>
                             </div>
@@ -156,7 +156,7 @@
            
         });
 
-        $('#btnsubmit').click(function(){
+        $('#saveScore').click(function(){
            alert("yipeeee");
            var Session = $('#session').val();
            var Term = $('#term').val();
@@ -167,29 +167,26 @@
            var FirstCA =$('#firstca').val();
            var SecondCA =$('#secondca').val();
            var Exam =$('#exam').val();
-           alert(Session+Term+Class+Subject+RollNumber+FullName+FirstCA+SecondCA+Exam);
            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            alert('hiiiiii');
-           e.preventDefault();
+            //e.preventDefault();
+           alert(Session+Term+Class+Subject+RollNumber+FullName+FirstCA+SecondCA+Exam);
            $.ajax({
                 type: 'post',
                 url: '/score',
-                data:{Session:Session,Term:Term,Class:Class,Subject:Subject,RollNumber:RollNumber,FullName:FullName,FirstCA:FirstCA,SecondCA:SecondCA,Exam:Exam},
+                data: { RollNumber: RollNumber, FullName:FullName, Class:Class, Session:Session, Term:Term, Subject:Subject, FirstCA:FirstCA, SecondCA:SecondCA, Exam:Exam },
                 dataType: 'json',
                 success:function(data){
-                    //alert(JSON.stringify(data));
                     alert('success');
                 },
                 error:function(data){
-                    //alert(JSON.stringify(data));
                     alert('error');
-                },
-
-           });
+                }
+            });
+           alert("Las Las");
            
         });
 
