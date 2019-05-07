@@ -22,15 +22,15 @@ class CreateScoresTable extends Migration
             $table->string('Class',15);
             //$table->string('Category',20);
             $table->string('Subject',20);
-            $table->tinyInteger('FirstCA')->unsigned()->default(0);
-            $table->tinyInteger('SecondCA')->unsigned()->default(0);
-            $table->tinyInteger('Exam')->unsigned()->default(0);
-            $table->Integer('Total')->unsigned()->default(0);
-            $table->Integer('GrandTotal')->unsigned()->default(0);
-            $table->Integer('Average')->unsigned()->default(0);
-            $table->Integer('GrandAverage')->unsigned()->default(0);
-            $table->Integer('Position')->unsigned()->default(0);
-            $table->Integer('GrandPosition')->unsigned()->default(0);
+            $table->Integer('FirstCA')->unsigned()->nullable()->default(null);
+            $table->Integer('SecondCA')->unsigned()->nullable()->default(null);
+            $table->Integer('Exam')->unsigned()->nullable()->default(null);
+            $table->Integer('Total')->unsigned()->nullable()->default(null);
+            $table->Integer('GrandTotal')->unsigned()->nullable()->default(null);
+            $table->Integer('Average')->unsigned()->nullable()->default(null);
+            $table->Integer('GrandAverage')->unsigned()->nullable()->default(null);
+            $table->Integer('Position')->unsigned()->nullable()->default(null);
+            $table->Integer('GrandPosition')->unsigned()->nullable()->default(null);
             $table->timestamps();
         });
     }

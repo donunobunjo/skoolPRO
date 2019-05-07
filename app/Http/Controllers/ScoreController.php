@@ -6,6 +6,7 @@ use App\Score;
 use App\Classs;
 use App\Session;
 use App\Subject;
+use App\Http\Requests\ScoreValidation;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
@@ -41,7 +42,7 @@ class ScoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(ScoreValidation $req)
     {
         $score = new Score();
         $score->Session=$req->Session;
@@ -101,9 +102,11 @@ class ScoreController extends Controller
      * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Score $score)
+    public function destroy($scoreid)
     {
-        //
+        $score=Score::destroy($scoreid);
+        return response()->json($score);
+
     }
     public function populate(Request $req)
     {

@@ -296,7 +296,8 @@
                         score +='<td class="text-center">'+FirstCA+'</td>';
                         score +='<td class="text-center">'+SecondCA+'</td>';
                         score +='<td class="text-center">'+Exam+'</td>';
-                        score += '<td><a href="#" class="show-class btn btn-info btn-sm" data-id="' + id + '" data-rollNumber="' + RollNumber +'" data-fullname="'+FullName+'"data-firstca="'+FirstCA+'"data-secondca="'+SecondCA+'"data-exam="'+Exam+'"><i class="fa fa-eye"></i>Change Class</a></tr> ';
+                        score+='<td><a href="#" class="edit-score btn btn-warning btn-sm" data-id="' + id + '" data-rollNumber="' + RollNumber + '" data-fullname="'+FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+FirstCA+'"data-secondca="'+SecondCA+'"data-exam="'+Exam+'"><i class="fa fa-edit"></i>Edit</a> ';
+                        score += '<a href="#" class="delete-score btn btn-danger btn-sm" data-id="' + id + '" data-rollNumber="' + RollNumber + '" data-fullname="'+FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+FirstCA+'"data-secondca="'+SecondCA+'"data-exam="'+Exam+'"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr> ';
                         $('#score-list').append(score);
                     });
                     },
@@ -363,8 +364,8 @@
                     score +='<td class="text-center">'+ data.FirstCA+'</td>';
                     score +='<td class="text-center">'+ data.SecondCA+'</td>';
                     score +='<td class="text-center">'+ data.Exam+'</td>';
-                    score += '<td><a href="#" class="show-score btn btn-info btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="fa fa-eye"></i>View</a> ';
-                    score += '<a href="#" class="edit-score btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="fa fa-edit"></i>Edit</a> ';
+                    
+                    score += '<td><a href="#" class="edit-score btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="fa fa-edit"></i>Edit</a> ';
                     score += '<a href="#" class="delete-score btn btn-danger btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr> ';
                     $('#score-list').append(score);
                     $('#savedMessage').html("Score has been recorded");
@@ -438,6 +439,41 @@
 
         $('#savedMessage').change(function(){
             alert("heloolooolooooo");
+        });
+
+        $('body').on('click', '.delete-score', function () {
+                //var scoreid;
+           var scoreid = $(this).attr('data-id');
+           var rollnum =  $(this).attr('data-rollNumber');
+           var fca = $(this).attr('data-firstca');
+           var sca = $(this).attr('data-secondca');
+           var exa = $(this).attr('data-exam');
+           alert(scoreid+fca+sca+exa+ " " +rollnum);
+           //scoreid="helelele";
+           if (confirm("Are you sure you want to delete this score:   " + rollnum)) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "DELETE",
+                url: 'score/' + scoreid,
+                success: function (data) {
+                    $("#score" + scoreid).remove();
+                    $('#updateMessage').html("Score deleted successfully");
+                },
+                error: function (data) {
+                   
+                }
+            });
+            }
+            else {
+                return false;
+            }
+
+
+            //alert(scoreid+fca+sca+exa);
         });
         
        
