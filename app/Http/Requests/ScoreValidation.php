@@ -24,17 +24,17 @@ class ScoreValidation extends FormRequest
     public function rules()
     {
         return [
-            'FullName'=>'required',
-            'FirstCA'=>'numeric|min:1|max:20',
-            'SecondCA'=>'numeric|min:1|max:20',
-            'Exam'=>'numeric|min:1|max:60',
+            'RollNumber'=>'required',
+            'FirstCA'=>'nullable|numeric|min:1|max:20',
+            'SecondCA'=>'nullable|numeric|min:1|max:20',
+            'Exam'=>'nullable|numeric|min:1|max:60',
         ];
     }
 
     public function messages()
     {
         return [
-            'FullName.required' =>'You need to pick a student',
+            'RollNumber.required' =>'You need to pick a student',
             'FirstCA.numeric'  => 'You need to enter a figure as First CA score',
             'FirstCA.min'  => 'First CA cant be less than 1',
             'FirstCA.max'  => 'First CA cant be greater than 20',

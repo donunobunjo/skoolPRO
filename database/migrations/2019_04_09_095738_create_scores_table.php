@@ -31,6 +31,7 @@ class CreateScoresTable extends Migration
             $table->Integer('GrandAverage')->unsigned()->nullable()->default(null);
             $table->Integer('Position')->unsigned()->nullable()->default(null);
             $table->Integer('GrandPosition')->unsigned()->nullable()->default(null);
+            $table->unique(['RollNumber','Session', 'Term', 'Class', 'Subject']);
             $table->timestamps();
         });
     }

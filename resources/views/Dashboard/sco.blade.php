@@ -22,7 +22,7 @@
 
 
 
- <!--New Student Modal -->
+ <!--New Score Modal -->
 
  <div class="modal fade" id="modalCreate">
         <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1" 
@@ -67,7 +67,7 @@
                                         <option value="">--Select Student Name--</option>
                                         
                                     </select> 
-                                    <span class="help-block State-error red"></span>
+                                    <span class="help-block RollNumber-error red"></span>
                                 </div>
                             </div>
 
@@ -77,7 +77,7 @@
                                 </label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="firstca" name="firstca" placeholder="First C.A. ..">
-                                    <span class="help-block RollNumber-error red"></span>
+                                    <span class="help-block FirstCA-error red"></span>
                                 </div>
                             </div>
 
@@ -88,7 +88,7 @@
                                 </label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="secondca" name="secondca" placeholder="Second C. A. ...">
-                                    <span class="help-block FullName-error red"></span>
+                                    <span class="help-block SecondCA-error red"></span>
                                 </div>
                             </div>
 
@@ -98,7 +98,7 @@
                                 </label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="exam" name="exam" placeholder="Exam ...">
-                                    <span class="help-block FullName-error red"></span>
+                                    <span class="help-block Exam-error red"></span>
                                 </div>
                             </div>
 
@@ -119,7 +119,105 @@
         </div>
         <!-- /.modal -->
 
-        <!-- New Student Modal End -->
+        <!-- New Score Modal End -->
+
+
+
+        <!--Update Score Modal -->
+
+<div class="modal fade" id="modalUpdate">
+    <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-time">
+                        </span>Please Wait
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info 
+                    progress-bar-striped active" style="width: 100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Update Score</h4>
+                <p>
+                    <h3 id="savMessage" style="text-align:center;color:green;"></h3>
+                </p>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="updateScoreForm">
+
+                    <div class="form-group row add">
+                        <label for="updatefullname" class="control-label col-sm-3">name :
+                            <span class="red" id="req">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id = "updaterollnumber" disabled >
+                            <span class="help-block RollNumber-error red"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row add">
+                        <label for="updatefirstca" class="control-label col-sm-3">First C.A. :
+                            <span class="red" id="req">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="updatefirstca" name="firstca">
+                            <span class="help-block FirstCA-error red"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row add">
+                        <label for="updatesecondca" class="control-label col-sm-3">Second C.A. :
+                            <span class="red" id="req">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="updatesecondca" name="secondca">
+                            <span class="help-block SecondCA-error red"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row add">
+                        <label for="updateexam" class="control-label col-sm-3">Exam :
+                            <span class="red" id="req">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="updateexam">
+                            <span class="help-block Exam-error red"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="updatescore">Save</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- update Score Modal End -->
 
 
 
@@ -208,7 +306,7 @@
                                                 <th class="text-center" width="70px">Second CA</th>
                                                 <th class="text-center" width="70px">Exam</th>
                                                 <th class="text-center" width="150px">
-                                                    <a href="#" id="showModalCreate" class="create-score btn btn-success btn-md" style="	visibility: hidden;">
+                                                    <a href="#" id="showModalCreate" class="create-score btn btn-success btn-md" style="visibility: hidden;">
                                                         <i class="fa fa-plus"></i>Score
                                                     </a>
                                                 </th>
@@ -239,8 +337,13 @@
     $(document).ready(function () {
 
         $('#showModalCreate').click(function () {
-            //alert("gagagagagag");
-            //$("#createScoreForm").trigger("reset");
+            $('.RollNumber-error').html("");
+            $('.FirstCA-error').html("");
+            $('.SecondCA-error').html(""); 
+	        $('.Exam-error').html("");         
+            $('#savedMessage').html("");
+            $('#updateMessage').html("");
+            $("#createScoreForm").trigger("reset");
             $('#modalCreate').modal({ backdrop: 'static', keyboard: false });
         });
 
@@ -319,6 +422,11 @@
            
         });
 
+        $("#fullname").change(function(){
+           // alert('baneeeeeeee');
+           
+        });
+
 
           //Handle the change event for the term select
         $("#term").change(function(){
@@ -337,11 +445,12 @@
            var Term = $('#term').val();
            var Class = $('#classs').val();
            var Subject = $('#subject').val();
-           var RollNumber =$('#fullname').val();
-           var FullName =$('#fullname').find('option:selected').text();
+           var RollNumber = $('#fullname').children("option:selected").val();
+           var FullName = $('#fullname').children("option:selected").text();
            var FirstCA =$('#firstca').val();
            var SecondCA =$('#secondca').val();
            var Exam =$('#exam').val();
+           alert(FullName+ "helllooo"+RollNumber);
            
            $.ajaxSetup({
                 headers: {
@@ -368,12 +477,23 @@
                     score += '<td><a href="#" class="edit-score btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="fa fa-edit"></i>Edit</a> ';
                     score += '<a href="#" class="delete-score btn btn-danger btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr> ';
                     $('#score-list').append(score);
-                    $('#savedMessage').html("Score has been recorded");
+                    $('#savedMessage').html("The score is saved");
+                    $('.RollNumber-error').html("");
+                    $('.FirstCA-error').html("");
+                    $('.SecondCA-error').html(""); 
+                    $('.Exam-error').html("");         
+                    $('#updateMessage').html("");
                     $("#createScoreForm").trigger("reset");
                 },
                 error:function(data){
-                   // alert('error');
-                    alert(JSON.stringify(data));
+                    if (data.status === 422) {
+                        $.each(data.responseJSON.errors, function (key, value) {
+                            $('.' + key + '-error').html(value);
+                        });
+                    } else {
+                        $('#savedMessage').html("This student's score has already been entered, you might need to just edit it");
+                    }
+                    //alert(JSON.stringify(data));
                 }
             });
            alert("Las Las");
@@ -448,8 +568,6 @@
            var fca = $(this).attr('data-firstca');
            var sca = $(this).attr('data-secondca');
            var exa = $(this).attr('data-exam');
-           alert(scoreid+fca+sca+exa+ " " +rollnum);
-           //scoreid="helelele";
            if (confirm("Are you sure you want to delete this score:   " + rollnum)) {
             $.ajaxSetup({
                 headers: {
@@ -476,7 +594,15 @@
             //alert(scoreid+fca+sca+exa);
         });
         
-       
+        $('body').on('click', '.edit-score', function () {
+                //alert('edit');
+                $('#modalUpdate').modal({ backdrop: 'static', keyboard: false });
+                $('#updaterollnumber').val($(this).attr("data-fullname"));
+                $('#updatefirstca').val($(this).attr("data-firstca"));
+                $('#updatesecondca').val($(this).attr("data-secondca"));
+                $('#updateexam').val($(this).attr("data-exam"));
+        });
+   
     });
 </script> 
 @endsection
