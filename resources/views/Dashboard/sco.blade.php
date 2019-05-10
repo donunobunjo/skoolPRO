@@ -153,7 +153,7 @@
                 </button>
                 <h4 class="modal-title">Update Score</h4>
                 <p>
-                    <h3 id="savMessage" style="text-align:center;color:green;"></h3>
+                    <h3 id="updatMessage" style="text-align:center;color:green;"></h3>
                 </p>
             </div>
             <div class="modal-body">
@@ -165,7 +165,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id = "updaterollnumber" disabled >
-                            <span class="help-block RollNumber-error red"></span>
+                            <span class="help-block red"></span>
                         </div>
                     </div>
 
@@ -200,7 +200,8 @@
                         </div>
                     </div>
 
-
+                            <input type="hidden" id="scoreid">
+                            <input type="hidden" id="rollid">
 
 
 
@@ -424,7 +425,7 @@
 
         $("#fullname").change(function(){
            // alert('baneeeeeeee');
-           
+           $('#savedMessage').html("");
         });
 
 
@@ -473,7 +474,6 @@
                     score +='<td class="text-center">'+ data.FirstCA+'</td>';
                     score +='<td class="text-center">'+ data.SecondCA+'</td>';
                     score +='<td class="text-center">'+ data.Exam+'</td>';
-                    
                     score += '<td><a href="#" class="edit-score btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="fa fa-edit"></i>Edit</a> ';
                     score += '<a href="#" class="delete-score btn btn-danger btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr> ';
                     $('#score-list').append(score);
@@ -601,6 +601,57 @@
                 $('#updatefirstca').val($(this).attr("data-firstca"));
                 $('#updatesecondca').val($(this).attr("data-secondca"));
                 $('#updateexam').val($(this).attr("data-exam"));
+                $('#scoreid').val($(this).attr("data-id"));
+                $('#rollid').val($(this).attr("data-rollNumber"));
+        });
+
+        $('#updatescore').click(function(){
+           alert('he don happen');
+           $('.FirstCA-error').html("");
+           $('.SecondCA-error').html(""); 
+           $('.Exam-error').html("");
+           $('#updateMessage').html("");
+           var FirstCA =$('#updatefirstca').val();
+           var SecondCA =$('#updatesecondca').val();
+           var Exam =$('#updateexam').val();
+           var scoreid=$('#scoreid').val();
+           var RollNumber= $('#rollid').val();
+           //alert(RollNumber);
+           $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+           });
+           //e.preventDefault();
+           $.ajax({
+                    type: "put",
+                    url: '/score/' + scoreid,
+                    data: { FirstCA: FirstCA, SecondCA:SecondCA, Exam:Exam,RollNumber:RollNumber },
+                    success: function (data) {
+                        alert("Success");
+                        var score = '<tr id="score' + data.id + '"><td class="text-center">' + data.RollNumber + '</td>';
+                        score +='<td class="text-center">'+data.FullName+'</td>';
+                        score +='<td class="text-center">'+ data.FirstCA+'</td>';
+                        score +='<td class="text-center">'+ data.SecondCA+'</td>';
+                        score +='<td class="text-center">'+ data.Exam+'</td>';
+                        score += '<td><a href="#" class="edit-score btn btn-warning btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="fa fa-edit"></i>Edit</a> ';
+                        score += '<a href="#" class="delete-score btn btn-danger btn-sm" data-id="' + data.id + '" data-rollNumber="' + data.RollNumber + '" data-fullname="'+data.FullName+'"data-class="'+data.Class+'" data-session="'+data.Session+'" data-term="'+data.Term+'" data-subject="'+data.Subject+'" data-firstca="'+data.FirstCA+'"data-secondca="'+data.SecondCA+'"data-exam="'+data.Exam+'"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr> ';
+                        $("#score" + scoreid).replaceWith(score);
+                        $('#updateMessage').html("Student update successfully");
+                        $("#modalUpdate").modal("hide");
+                    },
+                    error: function (data) {
+                        if (data.status === 422) {
+                        $.each(data.responseJSON.errors, function (key, value) {
+                            $('.' + key + '-error').html(value);
+                        });
+                        } else {
+                            //$('#savedMessage').html("This student's score has already been entered, you might need to just edit it");
+                        }
+                        alert(JSON.stringify(data));
+                    },
+            });
+            //alert('helelelelelelelele');
         });
    
     });

@@ -46,6 +46,7 @@ Route::get('/score','ScoreController@index');
 Route::post('/score','ScoreController@store');
 Route::get('/score/populate', 'ScoreController@populate');
 Route::delete('/score/{scoreid?}','ScoreController@destroy');
+Route::put('/score/{scoreid?}','ScoreController@update');
 
 
 Auth::routes();

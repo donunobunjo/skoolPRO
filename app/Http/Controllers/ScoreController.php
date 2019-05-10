@@ -91,9 +91,15 @@ class ScoreController extends Controller
      * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Score $score)
+    public function update(ScoreValidation $req, $scoreid)
     {
-        //
+        $score= Score::find($scoreid);
+        $score->FirstCA = $req->FirstCA;
+        $score->SecondCA = $req->SecondCA;
+        $score->Exam = $req->Exam;
+        $score->RollNumber=$req->RollNumber;
+        $score->save();
+        return response()->json($score);
     }
 
     /**
